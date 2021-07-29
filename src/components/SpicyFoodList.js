@@ -5,6 +5,13 @@ import Food from "./Food";
 function SpicyFoodList() {
   const [foods, setFoods] = useState(spicyFoods);
   const [filterBy, setFilterBy] = useState("All");
+  const foodsToDisplay = foods.filter(foodObj => {
+    if(filterBy === "All") {
+      return true;
+    } else {
+      return foodObj.cuisine === filterBy;
+    }
+  })
 
   function handleAddFood() {
     const newFood = getNewSpicyFood();
@@ -40,7 +47,7 @@ function SpicyFoodList() {
       </select> 
       <ul>
         {
-          foods.map(foodObj => {
+          foodsToDisplay.map(foodObj => {
             return (
               <Food
                 key={foodObj.id} 
