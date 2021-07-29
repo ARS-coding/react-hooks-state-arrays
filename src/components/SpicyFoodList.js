@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { spicyFoods, getNewSpicyFood } from "../data";
+import Food from "./Food";
 
 function SpicyFoodList() {
   const [foods, setFoods] = useState(spicyFoods);
@@ -26,7 +27,7 @@ function SpicyFoodList() {
       return foodObj;
     }))
   }
-  
+
   return (
     <div>
       <button onClick={handleAddFood}>Add New Food</button>
@@ -39,15 +40,15 @@ function SpicyFoodList() {
       </select> 
       <ul>
         {
-          foods.map(
-            foodObj => {
-              return (
-                <li key={foodObj.id}>
-                  Name: {foodObj.name} | Cuisine: {foodObj.cuisine} | Heat Level: {foodObj.heatLevel}
-                  <button id={foodObj.id} onClick={handleRemove}>X</button>
-                  <button id={foodObj.id} onClick={handleIncreaseHeat}>Increase Heat</button>
-                </li>
-              )
+          foods.map(foodObj => {
+            return (
+              <Food
+                key={foodObj.id} 
+                foodObj={foodObj} 
+                handleRemove={handleRemove} 
+                handleIncreaseHeat={handleIncreaseHeat}
+              />
+            )
           })
         }
       </ul>
