@@ -3,6 +3,7 @@ import { spicyFoods, getNewSpicyFood } from "../data";
 
 function SpicyFoodList() {
   const [foods, setFoods] = useState(spicyFoods);
+  const [filterBy, setFilterBy] = useState("All");
 
   function handleAddFood() {
     const newFood = getNewSpicyFood();
@@ -18,8 +19,6 @@ function SpicyFoodList() {
   }
 
   function handleIncreaseHeat(event) {
-    // const selectedFood = foods.filter(foodObj => foodObj.id == event.target.id)[0];
-    // console.log(selectedFood)
     setFoods(foods.map(foodObj => {
       if(foodObj.id == event.target.id) {
         return { ...foodObj, heatLevel: foodObj.heatLevel + 1 };
@@ -27,10 +26,17 @@ function SpicyFoodList() {
       return foodObj;
     }))
   }
-
+  
   return (
     <div>
       <button onClick={handleAddFood}>Add New Food</button>
+      <select name="filter" onChange={(event) => setFilterBy(event.target.value)}>
+        <option value="All">All</option>
+        <option value="American">American</option>
+        <option value="Sichuan">Sichuan</option>
+        <option value="Thai">Thai</option>
+        <option value="Mexican">Mexican</option>
+      </select> 
       <ul>
         {
           foods.map(
